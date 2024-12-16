@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  frontend1:
+    image: alpine
+    command: sh -c "while true; do ping -c 1 backend1; sleep 5; done"
+    networks:
+      - app-network
+
+  backend1:
+    image: alpine
+    command: tail -f /dev/null
+    networks:
+      - app-network
+
+  frontend2:
+    image: alpine
+    command: sh -c "while true; do ping -c 1 backend2; sleep 5; done"
+    networks:
+      - app-network
+
+  backend2:
+    image: alpine
+    command: tail -f /dev/null
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
